@@ -6,7 +6,7 @@ import CheckOutProduct from '../CheckOutProduct/CheckOutProduct';
 import { useStateValue } from '../ContextAPI/StateProvider';
 
 function Checkout() {
-  const [{ basket }, dispatch] = useStateValue();
+  const [{ basket, user }, dispatch] = useStateValue();
 
   return (
     <>
@@ -19,19 +19,17 @@ function Checkout() {
             className='checkout_ad'
           />
           <div>
-            <h2 className='checkout_title'>Your Shopping Bsket</h2>
+            <h3>Hello : {user?.email}</h3>
+            <h2 className='checkout_title'>Your Shopping Basket</h2>
             {basket.map((item) => (
               <CheckOutProduct
                 id={item.id}
-                title={item.title} 
+                title={item.title}
                 image={item.image}
                 price={item.price}
                 rating={item.rating}
               />
             ))}
-            {/* BasketITem */}
-            {/* BasketITem */}
-            {/* BasketITem */}
           </div>
         </div>
 

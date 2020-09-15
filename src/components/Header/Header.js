@@ -1,13 +1,20 @@
 import React from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
+import { auth } from 'firebase';
 
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import { useStateValue } from '../ContextAPI/StateProvider';
 
 function Header() {
-  const [{ basket }, dispatch] = useStateValue();
+  const [{ basket, user }, dispatch] = useStateValue();
+
+  const handleAuthentication = () => {
+    if (user) {
+      auth.signOut();
+    }
+  };
 
   return (
     <>
@@ -28,9 +35,11 @@ function Header() {
         <div className='header_nav'>
           {/* Opiton 1 */}
           <Link to='/login'>
-            <div className='header_option'>
+            <div onClick={handleAuthentication} className='header_option'>
               <span className='header_optionOne'>Hello Guest</span>
-              <span className='header_optionTwo'>Sing In</span>
+              <span className='header_optionTwo'>
+                {user ? 'Sign Out' : 'Sign In'}
+              </span>
             </div>
           </Link>
           {/* Opiton 2 */}
